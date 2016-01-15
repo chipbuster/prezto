@@ -10,4 +10,96 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+#Load bart theme
+autoload -Uz promptinit
+promptinit
+prompt steeef
+
+######################
+# User configuration #
+######################
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+unsetopt correct_all  
+unsetopt correct
+
+#History limits
+HISTSIZE=1000
+SAVEHIST=4000
+
+### Set up auto Dirstack ####
+#Use dirs -v to list and cd -<#> to revisit
+setopt autopushd pushdsilent pushdtohome
+setopt pushdignoredups # Ignore duplicate entries
+setopt pushdminus # This reverts the +/- operators.
+#### End autodirstack ####
+
+setopt extended_glob
+
+TERM='xterm-256color'
+alias dirs="dirs -v"
+
+##Hash R so that autocd doesn't bite us in the arse
+hash R &> /dev/null
+
+##Disable GREP_OPTIONS (annoying warnings)
+unset GREP_OPTIONS
+
+#Change output of time to be bash-like
+TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
+
+# Enable usage of autojump
+export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
+if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
+    . /opt/local/etc/profile.d/autojump.zsh
+fi
+
+# Something is mangling PATH in OS X 10.11...
+OSNAME="unknown"
+case $OSTYPE in
+    darwin*)
+        OSNAME="osx"
+        ;;
+esac
+
+PATH=~/.cabal/bin:$PATH            #Mostly for cabal
+PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
+PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
+export MANPATH=/opt/local/share/man:$MANPATH
+export EDITOR=vim
+
+if [ "$OSNAME" = "osx" ]; then
+    #Make sure clang knows about our libraries from MacPorts
+    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
+    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+
+    #Add rudimentary history to sftp on OS X
+    alias sftp="rlwrap sftp"
+
+    #Rebind text tools to their GNU variants
+    alias awk=gawk
+    alias sed=gsed
+    alias diff=gdiff
+
+fi
+
+export PATH
+unsetopt IGNORE_EOF
+
+# Hash SSH config and known_hosts to get SSH completion lists
+h=()
+if [[ -r ~/.ssh/config ]]; then
+  h=($h ${${${(@M)${(f)"$(cat ~/.ssh/config)"}:#Host *}#Host }:#*[*?]*})
+fi
+if [[ -r ~/.ssh/known_hosts ]]; then
+  h=($h ${${${(f)"$(cat ~/.ssh/known_hosts{,2} || true)"}%%\ *}%%,*}) 2>/dev/null
+fi
+if [[ $#h -gt 0 ]]; then
+  zstyle ':completion:*:ssh:*' hosts $h
+  zstyle ':completion:*:slogin:*' hosts $h
+fi

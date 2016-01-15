@@ -9,3 +9,53 @@
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+# ^^^ For ZPresto | vvv User Config
+
+# .zshenv created by Kevin Song for use on OS X and Linux
+
+# Check our OS Type
+OSNAME="unknown"
+case $OSTYPE in 
+    darwin*)
+        OSNAME="osx"
+        ;;
+    linux*)
+        OSNAME="linux"
+        ;;
+    *bsd*)
+        OSNAME="bsd"
+        ;;
+esac
+
+PATH=~/.cabal/bin:$PATH            #Mostly for cabal
+PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
+PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
+export MANPATH=/opt/local/share/man:$MANPATH
+export EDITOR=vim
+
+if [ "$OSNAME" = "osx" ]; then
+    #Make sure clang knows about our libraries from MacPorts
+    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
+    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+
+    #Add rudimentary history to sftp on OS X
+    alias sftp="rlwrap sftp"
+
+    #Rebind text tools to their GNU variants
+    alias awk=gawk
+    alias sed=gsed
+    alias diff=gdiff
+  
+elif [ "$OSNAME" = "linux" ]; then
+    #Do some linuxy-things
+  
+elif [ "$OSNAME" = "bsd" ]; then
+    #Do some BSD things
+  
+else
+    echo "Warning: could not deduce OS type from \$OSTYPE"
+fi
+
+export PATH
