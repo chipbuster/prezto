@@ -13,7 +13,7 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt steeef
+prompt sorin
 
 ######################
 # User configuration #
