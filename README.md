@@ -20,7 +20,9 @@ version is 4.3.17.
         git clone --recursive https://github.com/chipbuster/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 
   or
+  
         git clone --recursive git@github.com:chipbuster/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
   3. Create a new Zsh configuration by copying the Zsh configuration files
      provided:
 
