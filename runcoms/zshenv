@@ -37,16 +37,25 @@ export EDITOR=vim
 if [ "$OSNAME" = "osx" ]; then
     #Make sure clang knows about our libraries from MacPorts
     export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+    PATH=/opt/local/bin:/opt/local/sbin:$PATH #Path for MacPorts
     PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
-    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+    PATH=$PATH:/Users/chipbuster/Applications/scripts #Homegrown
 
     #Add rudimentary history to sftp on OS X
     alias sftp="rlwrap sftp"
+
+    #Homebrew options  
+    export HOMEBREW_GITHUB_API_TOKEN=33e45133160f49304279c9c495a50d500f14ad36
 
     #Rebind text tools to their GNU variants
     alias awk=gawk
     alias sed=gsed
     alias diff=gdiff
+
+    #Rebind emacsclient
+    function emcl(){
+    (nohup emacsclient $@ &) &>/dev/null
+    }
   
 elif [ "$OSNAME" = "linux" ]; then
     #Do some linuxy-things

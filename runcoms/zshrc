@@ -66,17 +66,14 @@ case $OSTYPE in
         ;;
 esac
 
-PATH=~/.cabal/bin:$PATH            #Mostly for cabal
-PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
-PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 
 if [ "$OSNAME" = "osx" ]; then
     #Make sure clang knows about our libraries from MacPorts
     export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
-    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+#    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+#    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
 
     #Add rudimentary history to sftp on OS X
     alias sftp="rlwrap sftp"
@@ -88,7 +85,7 @@ if [ "$OSNAME" = "osx" ]; then
 
 fi
 
-export PATH
+source ~/.zshenv
 unsetopt IGNORE_EOF
 
 # Hash SSH config and known_hosts to get SSH completion lists
