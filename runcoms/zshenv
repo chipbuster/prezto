@@ -28,29 +28,30 @@ case $OSTYPE in
         ;;
 esac
 
-PATH=~/.cabal/bin:$PATH            #Mostly for cabal
-PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
+PATH=$PATH:~/.cabal/bin:~/.local/bin  #Cabal and Stack (repsectively)
 PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 
 if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-    PATH=/opt/local/bin:/opt/local/sbin:$PATH #Path for MacPorts
-    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
+    . /Users/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+    #Make sure clang knows about our homebuilt libraries
+    #export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+
+    PATH=/opt/local/bin:/opt/local/sbin:$PATH #Path for manual installs
+    PATH=/opt/anaconda/python3/bin:/opt/anaconda/python2/bin:$PATH #conda paths
     PATH=$PATH:/Users/chipbuster/Applications/scripts #Homegrown
 
     #Add rudimentary history to sftp on OS X
     alias sftp="rlwrap sftp"
 
-    #Homebrew options  
-    export HOMEBREW_GITHUB_API_TOKEN=33e45133160f49304279c9c495a50d500f14ad36
+    #Homebrew options
+    export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"
 
     #Rebind text tools to their GNU variants
     alias awk=gawk
     alias sed=gsed
-    alias diff=gdiff
 
     #Rebind emacsclient
     function emcl(){

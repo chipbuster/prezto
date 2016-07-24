@@ -13,7 +13,7 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt sorin
+prompt paradox
 
 ######################
 # User configuration #
@@ -66,12 +66,7 @@ case $OSTYPE in
         ;;
 esac
 
-export MANPATH=/opt/local/share/man:$MANPATH
-export EDITOR=vim
-
 if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
 #    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
 #    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
 
@@ -85,7 +80,6 @@ if [ "$OSNAME" = "osx" ]; then
 
 fi
 
-source ~/.zshenv
 unsetopt IGNORE_EOF
 
 # Hash SSH config and known_hosts to get SSH completion lists
