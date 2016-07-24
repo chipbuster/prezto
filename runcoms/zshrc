@@ -13,13 +13,12 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt sorin
+prompt paradox
 
 ######################
 # User configuration #
 ######################
 
-# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -52,31 +51,9 @@ unset GREP_OPTIONS
 #Change output of time to be bash-like
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
-# Enable usage of autojump
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    . /opt/local/etc/profile.d/autojump.zsh
-fi
-
-# Something is mangling PATH in OS X 10.11...
-OSNAME="unknown"
-case $OSTYPE in
-    darwin*)
-        OSNAME="osx"
-        ;;
-esac
-
-PATH=~/.cabal/bin:$PATH            #Mostly for cabal
-PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
-PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
-export MANPATH=/opt/local/share/man:$MANPATH
-export EDITOR=vim
-
 if [ "$OSNAME" = "osx" ]; then
     #Make sure clang knows about our libraries from MacPorts
     export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
-    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
 
     #Add rudimentary history to sftp on OS X
     alias sftp="rlwrap sftp"
@@ -88,8 +65,8 @@ if [ "$OSNAME" = "osx" ]; then
 
 fi
 
-export PATH
 unsetopt IGNORE_EOF
+setopt clobber
 
 # Hash SSH config and known_hosts to get SSH completion lists
 h=()
