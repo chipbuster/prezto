@@ -72,3 +72,22 @@ if [[ ! -d "$TMPDIR" ]]; then
 fi
 
 TMPPREFIX="${TMPDIR%/}/zsh"
+
+# Kevin Config
+#
+# Define a function to use xdg-open and alias it (simiar to OS X)
+function open-xdg-thing(){
+  xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
+  }
+  alias open="open-xdg-thing"
+
+# Command-not-found suggestions from pkgfile
+source /usr/share/doc/pkgfile/command-not-found.zsh
+
+# Set PATH
+PATH=$PATH:~/.cabal/bin:~/.local/bin #for Cabal and Stack
+PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
+PATH=$PATH:/opt/cvc/bin            #PATH for texmol/volrover/f2dock + co.
+PATH=$PATH:/opt/script
+PATH=/opt/anaconda/bin:$PATH
+

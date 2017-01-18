@@ -7,22 +7,11 @@ fi
 
 # .zshenv created by Kevin Song for use on OS X and Linux
 
+# Set locale
+export LC_ALL="en_US.UTF-8"
+
 # Initialize OPAM environment for OCaml
-. /home/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-# Define a function to use xdg-open and alias it (simiar to OS X)
-function open-xdg-thing(){
-  xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
-}
-alias open="open-xdg-thing"
-
-# Command-not-found suggestions from pkgfile
-source /usr/share/doc/pkgfile/command-not-found.zsh
-
-PATH=$PATH:~/.cabal/bin:~/.local/bin #for Cabal and Stack
-PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
-PATH=$PATH:/opt/cvc/bin            #PATH for texmol/volrover/f2dock + co.
-PATH=$PATH:/opt/script
+# . /home/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 #Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
