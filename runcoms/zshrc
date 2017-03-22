@@ -4,6 +4,8 @@
 # Authors:
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
+#
+# Modified by Kevin Song specifically for TACC systems
 
 # Source Prezto.
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
@@ -24,7 +26,7 @@ prompt sorin
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
 
-unsetopt correct_all  
+unsetopt correct_all
 unsetopt correct
 
 #History limits
@@ -58,39 +60,6 @@ if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
     . /opt/local/etc/profile.d/autojump.zsh
 fi
 
-# Something is mangling PATH in OS X 10.11...
-OSNAME="unknown"
-case $OSTYPE in
-    darwin*)
-        OSNAME="osx"
-        ;;
-esac
-
-PATH=~/.cabal/bin:$PATH            #Mostly for cabal
-PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
-PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
-export MANPATH=/opt/local/share/man:$MANPATH
-export EDITOR=vim
-
-if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
-    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
-
-    #Add rudimentary history to sftp on OS X
-    alias sftp="rlwrap sftp"
-
-    #Rebind text tools to their GNU variants
-    alias awk=gawk
-    alias sed=gsed
-    alias diff=gdiff
-
-fi
-
-export PATH
-unsetopt IGNORE_EOF
-
 # Hash SSH config and known_hosts to get SSH completion lists
 h=()
 if [[ -r ~/.ssh/config ]]; then
@@ -103,3 +72,14 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:ssh:*' hosts $h
   zstyle ':completion:*:slogin:*' hosts $h
 fi
+
+unsetopt CDABLE_VARS
+
+## TACC CONFIGS
+
+alias tma="tmux attach"
+export EMAIL="ksong+taccnotify@ices.utexas.edu"
+function submit_tacc_job_with_notification(){
+	sbatch --mail-user="$EMAIL" --mail-type=BEGIN,END "$1"
+}
+alias sbatch-mail=submit_tacc_job_with_notification
