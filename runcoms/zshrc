@@ -51,20 +51,6 @@ unset GREP_OPTIONS
 #Change output of time to be bash-like
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
-if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-
-    #Add rudimentary history to sftp on OS X
-    alias sftp="rlwrap sftp"
-
-    #Rebind text tools to their GNU variants
-    alias awk=gawk
-    alias sed=gsed
-    alias diff=gdiff
-
-fi
-
 unsetopt IGNORE_EOF
 setopt clobber
 unsetopt CDABLE_VARS
@@ -87,3 +73,14 @@ eval $(keychain --eval --quiet --noask --nogui)
 
 # Rawrrrr >:3
 alias kick="bg && disown"
+
+# Utilities for ccache
+CCACHE_PATH=/usr/lib/ccache/bin
+alias ccache_on(){
+  PATH=$CCACHE_PATH:$PATH
+  export PATH
+}
+alias ccache_off(){
+  PATH=$(echo $PATH | sed -e 's_'$CCACHE_PATH':__')
+  export PATH
+}
