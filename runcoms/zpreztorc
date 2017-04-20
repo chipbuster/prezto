@@ -133,8 +133,9 @@ zstyle ':prezto:module:syntax-highlighting' color 'yes'
    'brackets' \
    'pattern' \
    'line' \
-   'cursor' \
    'root'
+
+#   'cursor' \
 
 # Set syntax highlighting styles.
 # zstyle ':prezto:module:syntax-highlighting' styles \

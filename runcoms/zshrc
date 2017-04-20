@@ -72,15 +72,21 @@ fi
 eval $(keychain --eval --quiet --noask --nogui)
 
 # Rawrrrr >:3
-alias kick="bg && disown"
+alias kk="bg && disown"
 
 # Utilities for ccache
 CCACHE_PATH=/usr/lib/ccache/bin
-alias ccache_on(){
+ccache_on(){
   PATH=$CCACHE_PATH:$PATH
   export PATH
 }
-alias ccache_off(){
+ccache_off(){
   PATH=$(echo $PATH | sed -e 's_'$CCACHE_PATH':__')
   export PATH
 }
+
+# Make make (hah!) use all our processors by default
+export MAKEFLAGS='-j16'
+
+# Stuff for z yo
+. /usr/lib/z.sh
