@@ -7,33 +7,22 @@ fi
 
 # .zshenv created by Kevin Song for use on OS X and Linux
 
+export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:/Users/chipbuster/Static/anaconda/anaconda/bin
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
 # Set locale
 export LC_ALL="en_US.UTF-8"
-
-PATH=~/.cabal/bin:$PATH            #Mostly for cabal
-PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
 
 #Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
-    . /Users/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
-    #Make sure clang knows about our homebuilt libraries
-    #export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+#Homebrew options
+export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"
 
-    PATH=/opt/local/bin:/opt/local/sbin:$PATH #Path for manual installs
-    PATH=/opt/anaconda/python3/bin:/opt/anaconda/python2/bin:$PATH #conda paths
-    PATH=$PATH:/Users/chipbuster/Applications/scripts #Homegrown
-    #Homebrew options
-    export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"
-
-    #Rebind emacsclient
-    function emcl(){
-    (nohup emacsclient $@ &) &>/dev/null
-    }
-export PATH
-
-### ENVIRONMENTAL NAMES
-VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"
-SKATSRC="/home/chipbuster/Spinny/CVC/skull-atlas"
+#Rebind emacsclient
+function emcl(){
+(nohup emacsclient $@ &) &>/dev/null
+}
