@@ -19,7 +19,6 @@ prompt paradox
 # User configuration #
 ######################
 
-# export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8
@@ -52,20 +51,6 @@ unset GREP_OPTIONS
 #Change output of time to be bash-like
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
-# Enable usage of autojump
-export FPATH="$FPATH:/opt/local/share/zsh/site-functions/"
-if [ -f /opt/local/etc/profile.d/autojump.zsh ]; then
-    . /opt/local/etc/profile.d/autojump.zsh
-fi
-
-# Something is mangling PATH in OS X 10.11...
-OSNAME="unknown"
-case $OSTYPE in
-    darwin*)
-        OSNAME="osx"
-        ;;
-esac
-
 if [ "$OSNAME" = "osx" ]; then
 #    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
 #    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
@@ -81,6 +66,7 @@ if [ "$OSNAME" = "osx" ]; then
 fi
 
 unsetopt IGNORE_EOF
+setopt clobber
 
 # Hash SSH config and known_hosts to get SSH completion lists
 h=()

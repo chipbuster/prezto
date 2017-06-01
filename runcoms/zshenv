@@ -1,10 +1,3 @@
-#
-# Defines environment variables.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
@@ -14,26 +7,16 @@ fi
 
 # .zshenv created by Kevin Song for use on OS X and Linux
 
-# Check our OS Type
-OSNAME="unknown"
-case $OSTYPE in 
-    darwin*)
-        OSNAME="osx"
-        ;;
-    linux*)
-        OSNAME="linux"
-        ;;
-    *bsd*)
-        OSNAME="bsd"
-        ;;
-esac
+# Set locale
+export LC_ALL="en_US.UTF-8"
 
-PATH=$PATH:~/.cabal/bin:~/.local/bin  #Cabal and Stack (repsectively)
-PATH=$PATH:~/.gem/ruby/2.0.0/bin   #PATH for RubyGems (e.g. grunt)
+PATH=~/.cabal/bin:$PATH            #Mostly for cabal
+PATH=$PATH:~/.cabal/bin            #PATH for personal cabal
+
+#Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
-
-if [ "$OSNAME" = "osx" ]; then
+export VISUAL=vim
     . /Users/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
     #Make sure clang knows about our homebuilt libraries
@@ -42,30 +25,15 @@ if [ "$OSNAME" = "osx" ]; then
     PATH=/opt/local/bin:/opt/local/sbin:$PATH #Path for manual installs
     PATH=/opt/anaconda/python3/bin:/opt/anaconda/python2/bin:$PATH #conda paths
     PATH=$PATH:/Users/chipbuster/Applications/scripts #Homegrown
-
-    #Add rudimentary history to sftp on OS X
-    alias sftp="rlwrap sftp"
-
     #Homebrew options
     export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"
-
-    #Rebind text tools to their GNU variants
-    alias awk=gawk
-    alias sed=gsed
 
     #Rebind emacsclient
     function emcl(){
     (nohup emacsclient $@ &) &>/dev/null
     }
-  
-elif [ "$OSNAME" = "linux" ]; then
-    #Do some linuxy-things
-  
-elif [ "$OSNAME" = "bsd" ]; then
-    #Do some BSD things
-  
-else
-    echo "Warning: could not deduce OS type from \$OSTYPE"
-fi
-
 export PATH
+
+### ENVIRONMENTAL NAMES
+VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"
+SKATSRC="/home/chipbuster/Spinny/CVC/skull-atlas"
