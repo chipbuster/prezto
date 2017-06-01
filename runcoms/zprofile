@@ -75,3 +75,4 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 
 # Kevin Config
 # V V V
+export PATH

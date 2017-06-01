@@ -18,6 +18,9 @@ export LC_ALL="en_US.UTF-8"
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
+if [ "$OSNAME" = "osx" ]; then
+    #Make sure clang knows about our libraries from MacPorts
+    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
 
 #Homebrew options
 export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"

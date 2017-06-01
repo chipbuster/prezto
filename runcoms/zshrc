@@ -51,22 +51,11 @@ unset GREP_OPTIONS
 #Change output of time to be bash-like
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
-if [ "$OSNAME" = "osx" ]; then
 #    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
 #    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
-
-    #Add rudimentary history to sftp on OS X
-    alias sftp="rlwrap sftp"
-
-    #Rebind text tools to their GNU variants
-    alias awk=gawk
-    alias sed=gsed
-    alias diff=gdiff
-
-fi
-
 unsetopt IGNORE_EOF
 setopt clobber
+unsetopt CDABLE_VARS
 
 # Hash SSH config and known_hosts to get SSH completion lists
 h=()
@@ -85,6 +74,25 @@ fi
 PROBLEMS="false"
 SPLITPATH=("${(@s/:/)PATH}")
 
+for DIR in ${SPLITPATH[@]}; do
+    if [ ! -d "$DIR" ]; then
+        echo "WARN: Directory $DIR in PATH does not seem to exist!"
+        PROBLEMS="true"
+    fi
+done
+if [ "$PROBLEMS" = "true" ]; then
+    echo "Problems detected in PATH. Fix them in ~/.zprofile"
+fi
+
+# Make make (hah!) use all our processors by default
+export MAKEFLAGS='-j16'
+
+# Stuff for z yo
+. /usr/lib/z.sh
+
+# Check that path is valid
+PROBLEMS="false"
+SPLITPATH=("${(@s/:/)PATH}")
 for DIR in ${SPLITPATH[@]}; do
     if [ ! -d "$DIR" ]; then
         echo "WARN: Directory $DIR in PATH does not seem to exist!"
