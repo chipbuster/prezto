@@ -85,11 +85,11 @@ function open-xdg-thing(){
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Set PATH
-#PATH=$PATH:~/.cabal/bin
-PATH=$PATH:~/.local/bin
-PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
-PATH=$PATH:/opt/cvc/install/bin    #PATH for texmol/volrover/f2dock + co.
-PATH=/opt/anaconda/bin:$PATH       #PATH for Anaconda 3
+PATH=$PATH:~/.cabal/bin:~/.local/bin #for Cabal and Stack
+PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
+PATH=$PATH:/opt/cvc/bin            #PATH for texmol/volrover/f2dock + co.
+PATH=$PATH:/opt/script
+PATH=/opt/anaconda/bin:$PATH
 
 # Check that path is valid
 PROBLEMS="false"
