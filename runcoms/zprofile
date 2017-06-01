@@ -81,13 +81,6 @@ function open-xdg-thing(){
   }
   alias open="open-xdg-thing"
 
-# Command-not-found suggestions from pkgfile
-source /usr/share/doc/pkgfile/command-not-found.zsh
-
 # Set PATH
-PATH=$PATH:~/.cabal/bin:~/.local/bin #for Cabal and Stack
-PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
-PATH=$PATH:/opt/cvc/bin            #PATH for texmol/volrover/f2dock + co.
-PATH=$PATH:/opt/script
-PATH=/opt/anaconda/bin:$PATH
-
+export PATH=/Library/TeX/texbin:$PATH # TexLive path
+export PATH=$PATH:~/Static/anaconda/anaconda/bin
