@@ -90,3 +90,6 @@ export MAKEFLAGS='-j16'
 
 # Stuff for z yo
 . /usr/lib/z.sh
+
+# Only useful on Arch for VTE Notifications in gnome-terminal-fedora
+source /etc/profile.d/vte.sh
