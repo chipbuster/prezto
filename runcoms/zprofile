@@ -86,9 +86,7 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Set PATH
 PATH=$PATH:~/.cabal/bin
-PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
 PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
-PATH=$PATH:/opt/script
 PATH=/opt/anaconda/bin:$PATH
 
 export PATH
