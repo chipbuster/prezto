@@ -86,22 +86,9 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Set PATH
 PATH=$PATH:~/.cabal/bin
-PATH=$PATH:~/.local/bin
-PATH=$PATH:/opt/anaconda/bin      #PATH for Anaconda 3
-PATH=$PATH:/opt/cvc/install/bin    #PATH for texmol/volrover/f2dock + co.
+PATH=$PATH:~/.gem/ruby/2.3.0/bin   #PATH for RubyGems (e.g. grunt)
 PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
-
-# Check that path is valid
-PROBLEMS="false"
-SPLITPATH=("${(@s/:/)PATH}")
-for DIR in ${SPLITPATH[@]}; do
-    if [ ! -d "$DIR" ]; then
-        echo "WARN: Directory $DIR in PATH does not seem to exist!"
-        PROBLEMS="true"
-    fi
-done
-if [ "$PROBLEMS" = "true" ]; then
-    echo "Problems detected in PATH. Fix them in ~/.zprofile"
-fi
+PATH=$PATH:/opt/script
+PATH=/opt/anaconda/bin:$PATH
 
 export PATH
