@@ -10,17 +10,11 @@ fi
 # Set locale
 export LC_ALL="en_US.UTF-8"
 
-# Initialize OPAM environment for OCaml
-# . /home/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 #Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 export PATH
-if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
 
 ### ENVIRONMENTAL NAMES
 VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"

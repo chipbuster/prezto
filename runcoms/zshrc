@@ -71,22 +71,8 @@ fi
 # Rawrrrr >:3
 alias kk="bg && disown"
 
-# Utilities for ccache
-CCACHE_PATH=/usr/lib/ccache/bin
-ccache_on(){
-  PATH=$CCACHE_PATH:$PATH
-  export PATH
-}
-ccache_off(){
-  PATH=$(echo $PATH | sed -e 's_'$CCACHE_PATH':__')
-  export PATH
-}
-
 # Make make (hah!) use all our processors by default
 export MAKEFLAGS='-j16'
-
-# Stuff for z yo
-. /usr/lib/z.sh
 
 # Check that path is valid
 PROBLEMS="false"
