@@ -86,7 +86,14 @@ ccache_off(){
 export MAKEFLAGS='-j16'
 
 # Stuff for z yo
-. /usr/lib/z.sh
+[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# Keychain for easy SSH
+eval $(keychain --eval --quiet --noask --nogui)
+
+# Change default editors
+export EDITOR=vim
+export VISUAL=vim
 
 # Check that path is valid
 PROBLEMS="false"

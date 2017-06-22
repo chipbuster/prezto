@@ -90,6 +90,6 @@ source /usr/share/doc/pkgfile/command-not-found.zsh
 # Set PATH
 PATH=$PATH:~/.cabal/bin
 PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
-PATH=/opt/anaconda/bin:$PATH
+PATH=$PATH:/opt/anaconda/bin
 
 export PATH
