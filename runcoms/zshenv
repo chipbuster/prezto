@@ -18,10 +18,8 @@ export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 export PATH
-if [ "$OSNAME" = "osx" ]; then
-    #Make sure clang knows about our libraries from MacPorts
-    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
 
 ### ENVIRONMENTAL NAMES
 VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"
 SKATSRC="/home/chipbuster/Spinny/CVC/skull-atlas"
+
