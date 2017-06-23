@@ -94,10 +94,6 @@ function compiler-export(){
   echo "\t CXX=$CXX"
 }
 
-
-# Make make (hah!) use all our processors by default
-export MAKEFLAGS='-j16'
-
 # Set appropriate maximum load for make: 1/4 of the total threads
 export MAKEFLAGS="-l$(( $(nproc --all) + 1 / 4))"
 # Check that path is valid
