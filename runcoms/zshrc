@@ -13,7 +13,7 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt sorin
+prompt paradox
 
 ######################
 # User configuration #
@@ -71,11 +71,10 @@ fi
 # Rawrrrr >:3
 alias kk="bg && disown"
 
-
-  export CC
+# Makeflags export
 export MAKEFLAGS="-j$(nproc --all)"
 
-  echo "I have exported the following:"
+# For Z
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # Keychain for easy SSH
