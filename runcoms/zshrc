@@ -89,22 +89,4 @@ function check-path-problems(){
     fi
 }
 
-# Display useful CPU information
-function display-processor-info(){
-  # Get info
-  CPUNAMESTRING=$(lscpu | grep "Model name" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Name of the CPU
-  CPUPHYSCT=$(lscpu | grep "NUMA node(s)" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Number of physical sockets for the CPUs
-  CPULOGCT=$(lscpu | grep "^CPU(s)" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Number of Logical CPUS (incl. hyperthreading)
-  CPUFREQ=$(cat /proc/cpuinfo | grep 'cpu MHz' | sort | tail -n 1 | cut -d ':' -f 2 | sed -e 's/^[[:space:]]*//' | cut -d '.' -f 1)
-
-  # Set (bold) colors
-  BGREEN='\033[1;36m'
-  NC='\033[0m' # No Color
-
-  echo "CPU for ${BGREEN}$(hostname --short) ${NC}is ${BGREEN}$CPUNAMESTRING${NC}"
-  echo "${BGREEN}$CPULOGCT ${NC}logical cores on ${BGREEN}$CPUPHYSCT ${NC}sockets. Maxfreq ${BGREEN} $CPUFREQ ${NC} MHz."
-}
-
 check-path-problems
-display-processor-info
-
