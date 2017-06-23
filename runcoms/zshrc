@@ -95,7 +95,7 @@ function compiler-export(){
 }
 
 # Set appropriate maximum load for make: 1/4 of the total threads
-export MAKEFLAGS="-l$(( $(nproc --all) + 1 / 4))"
+export MAKEFLAGS="-l$(( $(nproc --all) / 4))"
 # Check that path is valid
 PROBLEMS="false"
 SPLITPATH=("${(@s/:/)PATH}")
