@@ -15,7 +15,3 @@ export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 export PATH
-
-### ENVIRONMENTAL NAMES
-VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"
-SKATSRC="/home/chipbuster/Spinny/CVC/skull-atlas"
