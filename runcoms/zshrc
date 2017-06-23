@@ -83,13 +83,16 @@ ccache_off(){
 }
 
 # Make make (hah!) use all our processors by default
-export MAKEFLAGS='-j16'
+export MAKEFLAGS="-j$(nproc --all)"
 
 # Stuff for z yo
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 
 # Keychain for easy SSH
 eval $(keychain --eval --quiet --noask --nogui)
+
+# Command not found
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Change default editors
 export EDITOR=vim
