@@ -10,16 +10,9 @@ fi
 # Set locale
 export LC_ALL="en_US.UTF-8"
 
-# Initialize OPAM environment for OCaml
-# . /home/chipbuster/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
 #Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 export PATH
-
-### ENVIRONMENTAL NAMES
-VOLROVSRC="/home/chipbuster/Spinny/CVC/svn/github/VolRoverN"
-SKATSRC="/home/chipbuster/Spinny/CVC/skull-atlas"
 

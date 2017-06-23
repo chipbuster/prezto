@@ -71,6 +71,35 @@ fi
 # Rawrrrr >:3
 alias kk="bg && disown"
 
+# Function to properly export compiler variables
+# since the LMOD system doesn't do this for us
+function compiler-export(){
+  # Edit the order of the conditionals to change preferred compilers
+  if [[ $(whence -p icc) ]]; then
+    CC=$(which icc)
+    CXX=$(which icpc)
+  elif [[ $(whence -p gcc) ]]; then
+    CC=$(which gcc)
+    CXX=$(which g++)
+  elif [[ $(whence -p clang) ]]; then
+    CC=$(which clang)
+    CXX=$(which clang++)
+  else
+    CC=$(which cc)
+    CXX=$(which c++)
+  fi
+
+  echo "I have exported the following:"
+  echo "\t CC=$CC"
+  echo "\t CXX=$CXX"
+}
+
+
+# Make make (hah!) use all our processors by default
+export MAKEFLAGS='-j16'
+
+# Set appropriate maximum load for make: 1/4 of the total threads
+export MAKEFLAGS="-l$(( $(nproc --all) + 1 / 4))"
 # Check that path is valid
 PROBLEMS="false"
 SPLITPATH=("${(@s/:/)PATH}")
