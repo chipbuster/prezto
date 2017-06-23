@@ -92,7 +92,7 @@ function check-path-problems(){
 # Display useful CPU information
 function display-processor-info(){
   # Get info
-  CPUNAMESTRING=$(lscpu | grep "Model name" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Name of the CPU
+  CPUNAMESTRING=$(cat /proc/cpuinfo | grep "model name" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//' | uniq) # Name of the CPU
   CPUPHYSCT=$(lscpu | grep "NUMA node(s)" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Number of physical sockets for the CPUs
   CPULOGCT=$(lscpu | grep "^CPU(s)" | cut -f 2 -d ':' | sed -e 's/^[[:space:]]*//') # Number of Logical CPUS (incl. hyperthreading)
   CPUFREQ=$(cat /proc/cpuinfo | grep 'cpu MHz' | sort | tail -n 1 | cut -d ':' -f 2 | sed -e 's/^[[:space:]]*//' | cut -d '.' -f 1)
