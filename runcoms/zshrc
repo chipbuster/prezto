@@ -97,6 +97,8 @@ function compiler-export(){
   echo "\t CXX=$CXX"
 }
 
+# Set appropriate maximum load for make: 1/4 of the total threads
+export MAKEFLAGS="-l$(( $(nproc --all) + 1 / 4))"
 
 # Check that path is valid
 PROBLEMS="false"
