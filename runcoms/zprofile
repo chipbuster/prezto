@@ -84,7 +84,6 @@ function open-xdg-thing(){
 }
 alias open="open-xdg-thing"
 
-
 # Set PATH here
 
 export PATH
