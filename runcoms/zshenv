@@ -10,9 +10,10 @@ fi
 # Set locale
 export LC_ALL="en_US.UTF-8"
 
+PATH=$PATH:$WORK/software/install/masterbin
+
 #Export important variables
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 export PATH
-
