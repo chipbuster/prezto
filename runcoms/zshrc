@@ -71,8 +71,33 @@ fi
 # Rawrrrr >:3
 alias kk="bg && disown"
 
+function compiler-export(){		
+  # Edit the order of the conditionals to change preferred compilers		
+  if [[ $(whence -p icc) ]]; then		
+    CC=$(which icc)		
+    CXX=$(which icpc)		
+  elif [[ $(whence -p gcc) ]]; then		
+    CC=$(which gcc)		
+    CXX=$(which g++)		
+  elif [[ $(whence -p clang) ]]; then		
+    CC=$(which clang)		
+    CXX=$(which clang++)		
+  else		
+    CC=$(which cc)		
+    CXX=$(which c++)		
+  fi		
+		
+  export CC		
+  export CXX		
+		
+  echo "I have exported the following:"		
+  echo "\t CC=$CC"		
+  echo "\t CXX=$CXX"		
+}
+
 # Set appropriate maximum load for make: 1/4 of the total threads
 export MAKEFLAGS="-l$(( $(nproc --all) / 4))"
+
 # Check that path is valid
 function check-path-problems(){
     PROBLEMS="false"
