@@ -14,4 +14,21 @@ export LC_ALL="en_US.UTF-8"
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
+
+PATH=$PATH:~/.cabal/bin
+PATH=$PATH:/opt/anaconda/bin
+
+#Set GEM_PATH and GEM_HOME for Ruby
+GEM_CANDIDATE="$(ls -t -U | ruby -e 'puts Gem.user_dir')"
+if [ -d "$GEM_CANDIDATE" ]; then
+    export GEM_HOME="$GEM_CANDIDATE"
+    export GEM_PATH="$GEM_HOME"
+    export PATH="$PATH:$GEM_HOME/bin"
+else
+    echo "WARN: RubyGem path $GEM_CANDIDATE was not found on this system"
+    echo "Has there been a recent update to Ruby or the gem system?"
+    echo "If so, you can silence this warning with:"
+    echo "\t mkdir -p $GEM_CANDIDATE/bin"
+fi
+
 export PATH
