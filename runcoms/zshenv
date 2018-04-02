@@ -16,7 +16,6 @@ export EDITOR=vim
 export VISUAL=vim
 
 PATH=$PATH:~/.cabal/bin
-PATH=$PATH:/opt/anaconda/bin
 
 #Set GEM_PATH and GEM_HOME for Ruby
 GEM_CANDIDATE="$(ls -t -U | ruby -e 'puts Gem.user_dir')"

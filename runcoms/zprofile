@@ -82,6 +82,5 @@ fi
 # Set PATH here
 PATH=$PATH:~/.cabal/bin
 PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
-PATH=$PATH:/opt/anaconda/bin
 
 export PATH
