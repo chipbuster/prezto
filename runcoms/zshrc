@@ -73,13 +73,10 @@ alias kk="bg && disown"
 
 # Makeflags export
 export MAKEFLAGS="-j$(nproc --all)"
-
 # For Z
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
-
 # Keychain for easy SSH
 eval $(keychain --eval --quiet --noask --nogui)
-
 # Command not found
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
@@ -107,5 +104,4 @@ function open-xdg-thing(){
   xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
 }
 alias open="open-xdg-thing"
-
 check-path-problems
