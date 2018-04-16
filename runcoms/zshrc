@@ -26,10 +26,6 @@ export LANG=en_US.UTF-8
 unsetopt correct_all  
 unsetopt correct
 
-#History limits
-HISTSIZE=1000
-SAVEHIST=4000
-
 ### Set up auto Dirstack ####
 #Use dirs -v to list and cd -<#> to revisit
 setopt autopushd pushdsilent pushdtohome
@@ -115,3 +111,8 @@ fi
 
 alias open="open-xdg-thing"
 check-path-problems
+
+function checkcuda(){
+python2 -c 'import torch.cuda
+print torch.cuda.is_available()'
+}

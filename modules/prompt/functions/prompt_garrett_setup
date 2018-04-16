@@ -418,7 +418,7 @@ function prompt_garrett_setup {
   #
 
   # Base style.
-  zstyle ':prezto:module:editor:info:keymap:primary' format "${red}❱%(?.${yellow}.${red})❱%(?.${green}.${red})❱ "
+  zstyle ':prezto:module:editor:info:keymap:primary' format "${red}❱%(?.${yellow}.${red})❱%(?.${green}.${red})❱${prompt_garrett_color_prompt} "
 
   # Vim insert mode.
   # zstyle ':prezto:module:editor:info:keymap:primary:insert' format "${red}I "
