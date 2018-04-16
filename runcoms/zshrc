@@ -13,7 +13,7 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt paradox
+prompt garrett
 
 ######################
 # User configuration #
