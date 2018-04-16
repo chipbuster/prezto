@@ -73,17 +73,27 @@ zmodload -i zsh/datetime
 
 export prompt_garrett_last_notified=0
 
+function prompt_garrett_active_window_id () {
+    if [[ -n $DISPLAY ]] ; then
+        xprop -root _NET_ACTIVE_WINDOW | awk '{print $5}'
+        return
+    fi
+    echo nowindowid
+}
+
 # Notify of command completion after n seconds has passed.
 function prompt_garrett_precmd_notification {
 
   # Trigger a notification after n seconds have elapsed.
-  prompt_garrett_delay_after_notification=2
-
+  prompt_garrett_delay_after_notification=20
   prompt_garrett_current_notify=$(print -P '%!')
+ 
+  # If we already triggered a notification for this event, then skip
   if [ $prompt_garrett_current_notify -eq $prompt_garrett_last_notified ]; then
       return
   fi
 
+  # TODO: If the window is the current active window, then skip
 
   # Determine time elapsed.
   prompt_garrett_precmd_time_elapsed_start=${prompt_garrett_preexec_time:-$EPOCHSECONDS}
@@ -408,7 +418,7 @@ function prompt_garrett_setup {
   #
 
   # Base style.
-  zstyle ':prezto:module:editor:info:keymap:primary' format "${red}❱%(?.${prompt_garrett_color_prompt}.${red})❱❱ "
+  zstyle ':prezto:module:editor:info:keymap:primary' format "${red}❱%(?.${yellow}.${red})❱%(?.${green}.${red})❱ "
 
   # Vim insert mode.
   # zstyle ':prezto:module:editor:info:keymap:primary:insert' format "${red}I "
