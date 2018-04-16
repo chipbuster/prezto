@@ -65,22 +65,12 @@ fi
 
 
 # Kevin Config
-#
-# Stolen from Noah Anderson
-if [ -n "$(type -t xdg-open)" ]; then
-function open-xdg-thing(){
-  xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
-    open() {
-        local x
-        [ "$#" = 0 ] && echo 'Usage: open <file> [...]' >&2 && return 2
-        for x in "$@"; do
-            xdg-open "$x"
-        done
-    }
-fi
-
 # Set PATH here
 PATH=$PATH:~/.cabal/bin
 PATH=$PATH:~/.gem/ruby/2.4.0/bin   #PATH for RubyGems (e.g. jekyll)
 
 export PATH
+
+# Set devices for CUDA compute
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
+export CUDA_VISIBLE_DEVICES=1
