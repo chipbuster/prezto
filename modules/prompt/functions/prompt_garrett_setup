@@ -71,11 +71,19 @@ zmodload -i zsh/datetime
   # fi
 # }
 
+export prompt_garrett_last_notified=0
+
 # Notify of command completion after n seconds has passed.
 function prompt_garrett_precmd_notification {
 
   # Trigger a notification after n seconds have elapsed.
   prompt_garrett_delay_after_notification=2
+
+  prompt_garrett_current_notify=$(print -P '%!')
+  if [ $prompt_garrett_current_notify -eq $prompt_garrett_last_notified ]; then
+      return
+  fi
+
 
   # Determine time elapsed.
   prompt_garrett_precmd_time_elapsed_start=${prompt_garrett_preexec_time:-$EPOCHSECONDS}
@@ -110,19 +118,17 @@ function prompt_garrett_precmd_notification {
 
       # On linux, notify with notify-send.
       elif [[ "$OSTYPE" == linux-gnu ]] && (( $+commands[notify-send] )); then
-        local icon=dialog-information
-        local urgency=low
         notify-send \
           "${prompt_garrett_preexec_cmd:-Unknown command}" \
-          "Required $prompt_garrett_precmd_time_elapsed s" \
-          --icon=$icon\
-          --urgency=$urgency
-          
+          "Required $prompt_garrett_precmd_time_elapsed s"
 
       # Notify via tput.
       else
         tput bel
       fi
+
+      export prompt_garrett_last_notified=$(print -P '%!')
+      echo "Last notified $prompt_garrett_last_notified"
     fi
   fi
 }
