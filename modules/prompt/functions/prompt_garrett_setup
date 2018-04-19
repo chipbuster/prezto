@@ -81,11 +81,35 @@ function prompt_garrett_active_window_id () {
     echo nowindowid
 }
 
+
+prompt_paradox_print_elapsed_time() {
+  prompt_garrett_precmd_time_elapsed_start=${prompt_garrett_preexec_time:-$EPOCHSECONDS}
+  prompt_garrett_precmd_time_elapsed_stop=$EPOCHSECONDS
+  let end_time=$prompt_garrett_precmd_time_elapsed_stop-$prompt_garrett_precmd_time_elapsed_start
+
+  local hours minutes seconds remainder
+
+  if (( end_time >= 3600 )); then
+    hours=$(( end_time / 3600 ))
+    remainder=$(( end_time % 3600 ))
+    minutes=$(( remainder / 60 ))
+    seconds=$(( remainder % 60 ))
+    print -P "%B%F{red}>>> elapsed time ${hours}h${minutes}m${seconds}s%b"
+  elif (( end_time >= 60 )); then
+    minutes=$(( end_time / 60 ))
+    seconds=$(( end_time % 60 ))
+    print -P "%B%F{yellow}>>> elapsed time ${minutes}m${seconds}s%b"
+  elif (( end_time > 10 )); then
+    print -P "%B%F{green}>>> elapsed time ${end_time}s%b"
+  fi
+}
+
+
 # Notify of command completion after n seconds has passed.
 function prompt_garrett_precmd_notification {
 
   # Trigger a notification after n seconds have elapsed.
-  prompt_garrett_delay_after_notification=20
+  prompt_garrett_delay_after_notification=900 # 15 minutes
   prompt_garrett_current_notify=$(print -P '%!')
  
   # If we already triggered a notification for this event, then skip
@@ -138,7 +162,6 @@ function prompt_garrett_precmd_notification {
       fi
 
       export prompt_garrett_last_notified=$(print -P '%!')
-      echo "Last notified $prompt_garrett_last_notified"
     fi
   fi
 }
@@ -234,6 +257,9 @@ function prompt_garrett_preprompt_render() {
   # Add the correct number of characters.
   local prompt_space_character="${prompt_garrett_altchar_padding}"
   eval prompt_garrett_space="${prompt_garrett_color_prompt}\${(l.${prompt_garrett_space_padding}..${prompt_space_character}.)}"
+
+  # If needed, print time
+  prompt_paradox_print_elapsed_time
 
   # Newline + Prompt line 1 (set above PROMPT, below).
   print -P '\n${prompt_garrett_altchar_enable}${prompt_garrett_color_prompt}${prompt_garrett_upper_left_corner}( ${prompt_garrett_pwd}${git_info[remote_status]}${git_info[prompt_info]}${git_info[local_status]}${git_info[sha]} ${prompt_garrett_color_prompt})${prompt_garrett_altchar_enter}${(e)prompt_garrett_space}${prompt_garrett_altchar_leave}( ${ruby_info[version]}${prompt_garrett_location}${prompt_garrett_color_prompt} )${prompt_garrett_upper_right_corner}'
