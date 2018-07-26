@@ -69,10 +69,17 @@ alias kk="bg && disown"
 
 # Makeflags export
 export MAKEFLAGS="-j$(nproc --all)"
+
 # For Z
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+
+# For FZF
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
+
 # Keychain for easy SSH
 eval $(keychain --eval --quiet --noask --nogui)
+
 # Command not found
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
@@ -116,3 +123,17 @@ function checkcuda(){
 python2 -c 'import torch.cuda
 print torch.cuda.is_available()'
 }
+
+# Check for Ruby changes
+if [ -d "$GEM_CANDIDATE" ]; then
+    export GEM_HOME="$GEM_CANDIDATE"
+    export GEM_PATH="$GEM_HOME"
+    export PATH="$PATH:$GEM_HOME/bin"
+else
+    echo "WARN: RubyGem path $GEM_CANDIDATE was not found on this system"
+    echo "Has there been a recent update to Ruby or the gem system?"
+    echo "If so, you can silence this warning with:"
+    echo "\t mkdir -p $GEM_CANDIDATE/bin"
+fi
+
+

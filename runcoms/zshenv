@@ -19,17 +19,6 @@ PATH=$PATH:~/.cabal/bin
 
 #Set GEM_PATH and GEM_HOME for Ruby
 GEM_CANDIDATE="$(ls -t -U | ruby -e 'puts Gem.user_dir')"
-if [ -d "$GEM_CANDIDATE" ]; then
-    export GEM_HOME="$GEM_CANDIDATE"
-    export GEM_PATH="$GEM_HOME"
-    export PATH="$PATH:$GEM_HOME/bin"
-else
-    echo "WARN: RubyGem path $GEM_CANDIDATE was not found on this system"
-    echo "Has there been a recent update to Ruby or the gem system?"
-    echo "If so, you can silence this warning with:"
-    echo "\t mkdir -p $GEM_CANDIDATE/bin"
-fi
-
 export PATH
 
 # Set devices for CUDA compute
