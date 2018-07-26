@@ -68,7 +68,7 @@ fi
 #
 # Define a function to use xdg-open and alias it (simiar to OS X)
 # Stolen from Noah Anderson
-if [ -n "$(type -t xdg-open)" ]; then
+if [ -n "$(type xdg-open)" ]; then
     open() {
         local x
         [ "$#" = 0 ] && echo 'Usage: open <file> [...]' >&2 && return 2
