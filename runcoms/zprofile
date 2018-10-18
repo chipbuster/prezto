@@ -36,7 +36,7 @@ fi
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-# Set the the list of directories that cd searches.
+# Set the list of directories that cd searches.
 # cdpath=(
 #   $cdpath
 # )
@@ -62,27 +62,21 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
-#
-# Temporary Files
-#
-#
-if [[ -z "$TMPDIR" ]]; then
-  export TMPDIR="/tmp/zsh-$UID"
-fi
-
-if [[ ! -d "$TMPDIR" ]]; then
-  mkdir "$TMPDIR"
-  chmod 700 "$TMPDIR"
-fi
 
 
 # Kevin Config
 #
 # Define a function to use xdg-open and alias it (simiar to OS X)
-function open-xdg-thing(){
-  xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
-}
-alias open="open-xdg-thing"
+# Stolen from Noah Anderson
+if [ -n "$(type -t xdg-open)" ]; then
+    open() {
+        local x
+        [ "$#" = 0 ] && echo 'Usage: open <file> [...]' >&2 && return 2
+        for x in "$@"; do
+            xdg-open "$x"
+        done
+    }
+fi
 
 # Set PATH here
 export PATH
