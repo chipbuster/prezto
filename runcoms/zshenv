@@ -15,12 +15,12 @@ export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
 
-PATH=$PATH:~/.cabal/bin
-
 #Set GEM_PATH and GEM_HOME for Ruby
 GEM_CANDIDATE="$(ls -t -U | ruby -e 'puts Gem.user_dir')"
-export PATH
 
 # Set devices for CUDA compute
-export CUDA_DEVICE_ORDER=PCI_BUS_ID
-export CUDA_VISIBLE_DEVICES=1
+#export CUDA_DEVICE_ORDER=PCI_BUS_ID
+#export CUDA_VISIBLE_DEVICES=0
+
+# Set PATH
+source ~/.zpath

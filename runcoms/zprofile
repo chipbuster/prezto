@@ -65,11 +65,10 @@ fi
 
 
 # Kevin Config
-# Set PATH here
-PATH=$PATH:~/.cabal/bin
-
-export PATH
-
 # Set devices for CUDA compute
-export CUDA_DEVICE_ORDER=PCI_BUS_ID
-export CUDA_VISIBLE_DEVICES=1
+# exports for i3
+#export QT_SCALE_FACTOR=2
+#export GDK_SCALE=2
+#export GDK_DPI_SCALE=1
+#export TERMINAL=gnome-terminal
+

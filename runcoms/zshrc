@@ -101,39 +101,15 @@ function check-path-problems(){
         echo "Problems detected in PATH. Fix them in ~/.zprofile"
     fi
 }
-
-# Define a function to use xdg-open and alias it (simiar to OS X)
-if [ -n "$(type xdg-open)" ]; then
-function open-xdg-thing(){
-  xdg-open "$1" &> /dev/null || printf "xdg-open could not open %s (maybe bad mimetype?)\n" "$1"
-    open() {
-        local x
-        [ "$#" = 0 ] && echo 'Usage: open <file> [...]' >&2 && return 2
-        for x in "$@"; do
-            xdg-open "$x"
-        done
-    }
-}
-fi
-
-alias open="open-xdg-thing"
 check-path-problems
 
 function checkcuda(){
-python2 -c 'import torch.cuda
-print torch.cuda.is_available()'
+python -c 'import torch.cuda
+print(torch.cuda.is_available())'
 }
 
-# Check for Ruby changes
-if [ -d "$GEM_CANDIDATE" ]; then
-    export GEM_HOME="$GEM_CANDIDATE"
-    export GEM_PATH="$GEM_HOME"
-    export PATH="$PATH:$GEM_HOME/bin"
-else
-    echo "WARN: RubyGem path $GEM_CANDIDATE was not found on this system"
-    echo "Has there been a recent update to Ruby or the gem system?"
-    echo "If so, you can silence this warning with:"
-    echo "\t mkdir -p $GEM_CANDIDATE/bin"
-fi
+function simplenamd(){
+    namd2 +p16 "$1" | tee "$(basename -s '.namd' "$1").log"
+}
 
-
+function autotacc(){ ~/.ssh/autotacc/autotacc.py "$@"; }
