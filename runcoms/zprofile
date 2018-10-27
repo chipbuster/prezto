@@ -68,8 +68,5 @@ fi
 # Set devices for CUDA compute
 # exports for i3
 #export QT_SCALE_FACTOR=2
-if [ -n "$(type -t xdg-open)" ]; then
 #export GDK_DPI_SCALE=1
 #export TERMINAL=gnome-terminal
-
-
