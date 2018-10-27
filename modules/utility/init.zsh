@@ -62,7 +62,10 @@ fi
 # ls
 if is-callable 'dircolors'; then
   # GNU Core Utilities
-  alias ls='ls --group-directories-first'
+
+  if zstyle -T ':prezto:module:utility:ls' dirs-first; then
+    alias ls="${aliases[ls]:-ls} --group-directories-first"
+  fi
 
   if zstyle -t ':prezto:module:utility:ls' color; then
     # Call dircolors to define colors if they're missing
@@ -117,7 +120,7 @@ if zstyle -t ':prezto:module:utility:grep' color; then
   alias grep="${aliases[grep]:-grep} --color=auto"
 fi
 
-# Mac OS X Everywhere
+# macOS Everywhere
 if [[ "$OSTYPE" == darwin* ]]; then
   alias o='open'
 elif [[ "$OSTYPE" == cygwin* ]]; then
