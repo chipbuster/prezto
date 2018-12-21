@@ -228,7 +228,7 @@ alias glg2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold 
   alias gRb='git-hub-browse'
 
   # Stash (s)
-  alias gs='git stash'
+alias gs='git stash'
   alias gsa='git stash apply'
   alias gsx='git stash drop'
   alias gsX='git-stash-clear-interactive'
