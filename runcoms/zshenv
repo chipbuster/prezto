@@ -1,11 +1,15 @@
 # Ensure that a non-login, non-interactive shell has a defined environment.
-if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
 
 # ^^^ For ZPresto | vvv User Config
 
 # .zshenv created by Kevin Song for use on OS X and Linux
+
+export PATH=$PATH:/Library/TeX/texbin
+export PATH=$PATH:/Users/chipbuster/Static/anaconda/anaconda/bin
+export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # Set locale
 export LC_ALL="en_US.UTF-8"
@@ -14,13 +18,14 @@ export LC_ALL="en_US.UTF-8"
 export MANPATH=/opt/local/share/man:$MANPATH
 export EDITOR=vim
 export VISUAL=vim
+if [ "$OSNAME" = "osx" ]; then
+    #Make sure clang knows about our libraries from MacPorts
+    export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
 
-#Set GEM_PATH and GEM_HOME for Ruby
-GEM_CANDIDATE="$(ls -t -U | ruby -e 'puts Gem.user_dir')"
+#Homebrew options
+export HOMEBREW_GITHUB_API_TOKEN="873fb03716e6d95af05402c1e94e4605b95bc6fe"
 
-# Set devices for CUDA compute
-#export CUDA_DEVICE_ORDER=PCI_BUS_ID
-#export CUDA_VISIBLE_DEVICES=0
-
-# Set PATH
-source ~/.zpath
+#Rebind emacsclient
+function emcl(){
+(nohup emacsclient $@ &) &>/dev/null
+}

@@ -36,7 +36,7 @@ fi
 # Ensure path arrays do not contain duplicates.
 typeset -gU cdpath fpath mailpath path
 
-# Set the list of directories that cd searches.
+# Set the the list of directories that cd searches.
 # cdpath=(
 #   $cdpath
 # )
@@ -62,11 +62,17 @@ if (( $#commands[(i)lesspipe(|.sh)] )); then
   export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
 fi
 
+#
+# Temporary Files
+#
 
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+TMPPREFIX="${TMPDIR%/}/zsh"
 
 # Kevin Config
-# Set devices for CUDA compute
-# exports for i3
-#export QT_SCALE_FACTOR=2
-#export GDK_DPI_SCALE=1
-#export TERMINAL=gnome-terminal
+# V V V
+export PATH

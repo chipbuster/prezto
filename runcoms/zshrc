@@ -13,7 +13,7 @@ fi
 #Load bart theme
 autoload -Uz promptinit
 promptinit
-prompt garrett
+prompt paradox
 
 ######################
 # User configuration #
@@ -25,6 +25,10 @@ export LANG=en_US.UTF-8
 
 unsetopt correct_all  
 unsetopt correct
+
+#History limits
+HISTSIZE=1000
+SAVEHIST=4000
 
 ### Set up auto Dirstack ####
 #Use dirs -v to list and cd -<#> to revisit
@@ -47,6 +51,8 @@ unset GREP_OPTIONS
 #Change output of time to be bash-like
 TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
+#    PATH=/opt/local/bin:/opt/local/sbin/:$PATH #Path for MacPorts
+#    PATH=/opt/custom/bin:/opt/custom/sbin:$PATH #Path for manual installs
 unsetopt IGNORE_EOF
 setopt clobber
 unsetopt CDABLE_VARS
@@ -64,52 +70,36 @@ if [[ $#h -gt 0 ]]; then
   zstyle ':completion:*:slogin:*' hosts $h
 fi
 
-# Rawrrrr >:3
-alias kk="bg && disown"
+# Check that path is valid
+PROBLEMS="false"
+SPLITPATH=("${(@s/:/)PATH}")
 
-# Makeflags export
-export MAKEFLAGS="-j$(nproc --all)"
+for DIR in ${SPLITPATH[@]}; do
+    if [ ! -d "$DIR" ]; then
+        echo "WARN: Directory $DIR in PATH does not seem to exist!"
+        PROBLEMS="true"
+    fi
+done
+if [ "$PROBLEMS" = "true" ]; then
+    echo "Problems detected in PATH. Fix them in ~/.zprofile"
+fi
 
-# For Z
-[[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
+# Make make (hah!) use all our processors by default
+export MAKEFLAGS='-j16'
 
-# For FZF
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
-
-# Keychain for easy SSH
-eval $(keychain --eval --quiet --noask --nogui)
-
-# Command not found
-source /usr/share/doc/pkgfile/command-not-found.zsh
-
-# Change default editors
-export EDITOR=vim
-export VISUAL=vim
+# Stuff for z yo
+. /usr/lib/z.sh
 
 # Check that path is valid
-function check-path-problems(){
-    PROBLEMS="false"
-    SPLITPATH=("${(@s/:/)PATH}")
-    for DIR in ${SPLITPATH[@]}; do
-        if [ ! -d "$DIR" ]; then
-            echo "WARN: Directory $DIR in PATH does not seem to exist!"
-            PROBLEMS="true"
-        fi
-    done
-    if [ "$PROBLEMS" = "true" ]; then
-        echo "Problems detected in PATH. Fix them in ~/.zprofile"
+PROBLEMS="false"
+SPLITPATH=("${(@s/:/)PATH}")
+for DIR in ${SPLITPATH[@]}; do
+    if [ ! -d "$DIR" ]; then
+        echo "WARN: Directory $DIR in PATH does not seem to exist!"
+        PROBLEMS="true"
     fi
-}
-check-path-problems
+done
+if [ "$PROBLEMS" = "true" ]; then
+    echo "Problems detected in PATH. Fix them in ~/.zprofile"
+fi
 
-function checkcuda(){
-python -c 'import torch.cuda
-print(torch.cuda.is_available())'
-}
-
-function simplenamd(){
-    namd2 +p16 "$1" | tee "$(basename -s '.namd' "$1").log"
-}
-
-function autotacc(){ ~/.ssh/autotacc/autotacc.py "$@"; }
